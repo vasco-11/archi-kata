@@ -1,0 +1,21 @@
+# Choice of hybrid architecture
+
+## Status
+Accepted
+
+## Context
+We are required to choose an overall architecture style for farmacy foods based on the given requirements. There were several contenders for this.
+
+## Decision
+We chose a hybrid of event based and microservices. This was because of the following reasons:
+ - The business wants to gradually scale this nationwide, so scalability is important.
+ - data coming in from disparate systems like smart fridge, kiosks etc and we also have integrations with third party systems like quickbooks, cheftec, toast ,etc. (interoperability) 
+ - we need to support notifications 
+ - reporting
+ - data analysis
+ - The system needs to be extensible since a lot of new features are in the pipeline
+ - We need quick turnaround times to push new features into the market and gauge the response of the customers.
+A combination of microservices and event based system will enable us to have some of these charateristics baked in into the architecture.
+
+## Consequences
+- Having the eventing system will increase the complexity and time to market a bit initially. But should pay off in the long run since we have requirements such as interoperability, reporting, data analysis, and multiple systems using the transaction data.
