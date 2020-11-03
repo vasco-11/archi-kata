@@ -40,7 +40,44 @@ Here's a basic information on how to interpret the diagram.
 - should be able to create/remove another central admin
 - do everything that a kitchen admin or sale front operator can do.
 
+**delivery agent** : Updates shipment delivery status
+- should be able to update shipment delivery status
+- should be notified of new delivery task.
+
 
 ### General Assumptions:
 - We are assuming that a every type of user can access the application with a mobile and web frontend, which already exists or is being developed parallely. Therefore the architecture of the front end systems is outside the scope of this for now.
-- 
+
+### service responsibilities
+**People management**
+  - manages the various user types of the system like customers, operators, etc.
+
+**Sale front**
+  - A sale front represents the point of sale. It could be a smart fridge or a kiosk. The sale front service talks to these point of sale systems and manages data in them. For example, an operator can talk to sale front service to update the inventory after restocking. Also every sale transaction will be captured and published to the transactions queue to update the inventory status.
+  
+**Product management**
+  - This service handles creation and updation of product catalogue. It also helps the kitchen admin or kitchen manager to know the status of the inventory that he/she is managing. They can also update the kitchen menu.
+  - Talks to inventory tracker to list only the available items.
+
+**Authentication and authorization**
+  - Handles authentication and authorization.
+
+**Order management**
+  - Handles all the orders arriving on the system as well as the feedback for the orders. At the moment they are the subscription orders. Uses RDBMS so that we have better support for transactions if the need be.
+
+**Inventory tracker**
+  - Handles the inventory management. Picks up the transaction details from the transaction queue to update the inventory status. It also notifies the product management about items going out of stock.
+
+**Shipping**
+  - tracks status of various shipments like shipments for customers and also for restocking
+
+**Payments**
+  - Is a third party system being used currently.
+
+**location service**
+  - Is a third party location service to search for the sale fronts nearby
+
+**Accounting**
+  - Is a third party service.
+
+
